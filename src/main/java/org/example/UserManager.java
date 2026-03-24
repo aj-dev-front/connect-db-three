@@ -10,9 +10,9 @@ public class UserManager {
     private final Database database = new Database();
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public void createUser(User userToCreate) {
+    public void createUser(@BeanParam UserForm userToCreate) {
         try {
             database.createUser(userToCreate);
         } catch (SQLException e) {

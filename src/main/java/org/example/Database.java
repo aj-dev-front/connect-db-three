@@ -35,9 +35,10 @@ public class Database {
         statement.execute(createTable);
     }
 
-    public void createUser(User user) throws SQLException {
+    public void createUser(UserForm user) throws SQLException {
+        System.out.println("Creating user: " + user.getName());
         String insertSQL
-                = "INSERT INTO users (name, email) VALUES (" + user.getName() + ", " + user.getEmail() + ")";
+                = String.format("INSERT INTO users (name, email) VALUES ('%s', '%s')", user.getName(), user.getEmail());
         statement.executeUpdate(insertSQL);
     }
 
