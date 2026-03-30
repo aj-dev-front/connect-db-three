@@ -35,10 +35,10 @@ public class Database {
         statement.execute(createTable);
     }
 
-    public void createUser(UserForm user) throws SQLException {
-        System.out.println("Creating user: " + user.getName());
+    public void createUser(User user) throws SQLException {
+        System.out.println("Creating user: " + user.name());
         String insertSQL
-                = String.format("INSERT INTO users (name, email) VALUES ('%s', '%s')", user.getName(), user.getEmail());
+                = String.format("INSERT INTO users (name, email) VALUES ('%s', '%s')", user.name(), user.email());
         statement.executeUpdate(insertSQL);
     }
 
@@ -53,6 +53,19 @@ public class Database {
             users = newArray;
         }
         return users;
+    }
+
+    public void authenticateUser(String username, String password)
+            throws SQLException {
+        String selectUser
+                = String.format(
+                "SELECT * FROM users WHERE name='%s' AND password='%s'"
+                , username
+                , password);
+        ResultSet resultSet = statement.executeQuery(selectUser);
+        if (!resultSet.next()) {
+            throw new SQLException("Invalid username or password");
+        }
     }
 
     protected void finalize() {

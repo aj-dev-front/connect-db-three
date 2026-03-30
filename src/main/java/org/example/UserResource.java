@@ -6,13 +6,12 @@ import jakarta.ws.rs.core.MediaType;
 import java.sql.SQLException;
 
 @Path("/users")
-public class UserManager {
+public class UserResource {
     private final Database database = new Database();
 
     @POST
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.APPLICATION_JSON)
-    public void createUser(@BeanParam UserForm userToCreate) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void createUser(User userToCreate) {
         try {
             database.createUser(userToCreate);
         } catch (SQLException e) {
