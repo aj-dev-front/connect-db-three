@@ -7,7 +7,15 @@ import java.sql.SQLException;
 
 @Path("/users")
 public class UserResource {
-    private final Database database = new Database();
+    private final Database database;
+
+    UserResource() {
+        database = new Database();
+    }
+
+    UserResource(Database database) {
+        this.database = database;
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

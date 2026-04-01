@@ -1,7 +1,7 @@
 package org.example;
 
 import java.sql.*;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Database {
     private Connection connection;
@@ -17,7 +17,7 @@ public class Database {
         }
     }
 
-    private void loadDriver() throws ClassNotFoundException {
+    protected void loadDriver() throws ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
     }
 
@@ -46,13 +46,11 @@ public class Database {
         String selectSQL = "SELECT * FROM users ";
         final ResultSet resultSet = statement.executeQuery(selectSQL);
         User[] users = new User[0];
+        ArrayList<User> list = new ArrayList<>();
         while (resultSet.next()) {
-            final User res = new User(resultSet.getString("name"), resultSet.getString("email"));
-            final User[] newArray = Arrays.copyOf(users, users.length + 1);
-            newArray[users.length] = res;
-            users = newArray;
+            list.add(new User(resultSet.getString("name"), resultSet.getString("email")));
         }
-        return users;
+        return list.toArray(users);
     }
 
     public void authenticateUser(String username, String password)

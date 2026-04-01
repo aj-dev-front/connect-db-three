@@ -15,7 +15,7 @@ public class App {
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
 
-    public static void main(String[] args) throws IOException {
+    static void main() throws IOException {
         final HttpServer server = startServer();
         System.out.printf("Jersey app started at %s%s%n", BASE_URI, "message");
         System.out.println("Hit enter to stop it...");
